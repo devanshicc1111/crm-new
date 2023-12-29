@@ -1,0 +1,104 @@
+html,
+body {
+  min-height: 100%;
+}
+
+#__next {
+  height: 100%;
+}
+
+code {
+  font-family: 'Public Sans', sans-serif, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
+    'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue';
+  padding: 0.1rem 0.4rem;
+  font-size: 90%;
+  color: #d400ff;
+  border-radius: 0.1335rem;
+}
+code:not([class*='language-']):before,
+code:not([class*='language-']):after {
+  content: '`';
+}
+code[class*='language-'] {
+  padding: 0;
+}
+
+/* ==================Add Icon Animation =================*/
+
+.PaIconCon {
+  cursor: pointer;
+  font-size: 1.5rem;
+  color: white;
+  border-radius: 50%;
+  padding: 5px;
+  margin: 3px;
+
+  transition: color 0.2s ease, background-color 0.2s ease, transform 0.3s ease;
+}
+
+.PaIconCon:hover:after {
+  transform: scale(1);
+  box-shadow: 10px 0 20px rgba(0, 0, 0, 0.19), 6px 0 6px rgba(0, 0, 0, 0.23);
+}
+
+.PaIconCon:hover {
+  background-color: transparent;
+  transform: rotate(90deg);
+  cursor: pointer;
+  box-shadow: none;
+}
+
+/* ----------------- Table ------------------ */
+
+/* Light Mode */
+.MuiCardHeader-root.css-4jv9yj-MuiCardHeader-root {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-right: 36px;
+}
+/* Dark Mode */
+
+.MuiCardHeader-root.css-15p94t2-MuiCardHeader-root {
+  padding-top: 5px;
+  padding-bottom: 5px;
+  padding-right: 36px;
+}
+
+.layout-page-content.css-zyg32b {
+  padding: 10px;
+}
+
+/* ---------------Toolbar---------------- */
+
+.MuiToolbar-root.MuiToolbar-gutters.MuiToolbar-dense.css-1b8iqgt-MuiToolbar-root {
+  margin-top: 0px;
+}
+
+.MuiPaper-root.MuiPaper-elevation.MuiPaper-elevation4.MuiAppBar-root.MuiAppBar-colorPrimary.MuiAppBar-positionStatic.css-vbnm7i-MuiPaper-root-MuiAppBar-root {
+  min-height: 0px !important;
+  height: 50px;
+}
+
+.MuiPaper-root.MuiPaper-elevation.MuiPaper-elevation4.MuiAppBar-root.MuiAppBar-colorPrimary.MuiAppBar-positionStatic.css-ws6s7b-MuiPaper-root-MuiAppBar-root {
+  min-height: 0px !important;
+  height: 50px;
+}
+
+/* --------------Lead Detail----------------- */
+
+.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation7.MuiCard-root.css-gm4aij-MuiPaper-root-MuiCard-root {
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.css-wdb2hc-MuiTabs-root .Mui-selected {
+  color: white !important;
+}
+
+.MuiBox-root.css-12hr0br {
+  justify-content: flex-end;
+}
+
+.MuiButtonBase-root.MuiButton-root.MuiButton-outlined.MuiButton-outlinedPrimary.MuiButton-sizeMedium.MuiButton-outlinedSizeMedium.MuiButton-root.MuiButton-outlined.MuiButton-outlinedPrimary.MuiButton-sizeMedium.MuiButton-outlinedSizeMedium.css-mqa3dm-MuiButtonBase-root-MuiButton-root {
+  height: 37px;
+}
