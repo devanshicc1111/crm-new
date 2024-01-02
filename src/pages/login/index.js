@@ -278,12 +278,12 @@ const LoginPage = () => {
                 <Image src={clorosLogo} alt='claros-logo' width={70} height={70} />
               </div> */}
               <div>
-                <HeaderTitle style={{ fontSize: '2.5rem' }}>laros</HeaderTitle>
+                <HeaderTitle style={{ fontSize: '2.5rem' }}>CRM</HeaderTitle>
               </div>
             </div>
             <Box sx={{ my: 6 }}>
               <Typography variant='h3' sx={{ mb: 1.5 }}>
-                {`Welcome to Claros 👋🏻`}
+                {`Welcome to CRM 👋🏻`}
               </Typography>
               <Typography sx={{ color: 'text.secondary' }}>Please sign-in to your account</Typography>
             </Box>

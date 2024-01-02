@@ -3,12 +3,20 @@ import DialogTitle from '@mui/material/DialogTitle'
 import DialogContent from '@mui/material/DialogContent'
 import DialogActions from '@mui/material/DialogActions'
 import CloseIcon from '@mui/icons-material/Close'
-import { Tooltip, IconButton, Grid, Button, Autocomplete } from '@mui/material'
+import { Tooltip, IconButton, Grid, Button, Autocomplete, Paper } from '@mui/material'
 import TextField from '@mui/material/TextField'
-import { Formik, Field, FieldArray } from 'formik'
 
 function MilestoneForm(props) {
   const { handleClose } = props
+
+  const status = [
+    { label: 'New' },
+    { label: 'Upside' },
+    { label: 'Strong Upside' },
+    { label: 'Commit' },
+    { label: 'Won' },
+    { label: 'Lost' }
+  ]
 
   return (
     <>
@@ -33,25 +41,16 @@ function MilestoneForm(props) {
         <Grid container spacing={2}>
           <Grid item xs={4}>
             <Autocomplete
-              name='status'
               disablePortal
               id='combo-box-demo'
-              size='small'
-              value={formik.values.status || ''}
-              options={statusS}
-              onChange={(e, newValue) => {
-                newValue ? formik.setFieldValue('status', newValue) : formik.setFieldValue('status', '')
-              }}
-              renderInput={params => (
-                <TextField
-                  {...params}
-                  label='STATUS'
-                  error={formik.touched.status && Boolean(formik.errors.status)}
-                  helperText={formik.touched.status && formik.errors.status}
-                />
-              )}
+              options={status}
+              sx={{ width: 300 }}
+              renderInput={params => <TextField {...params} label='Status' />}
+              PaperComponent={({ children }) => <Paper style={{ maxHeight: 200, overflow: 'auto' }}>{children}</Paper>}
+              style={{ width: '100%' }}
             />
           </Grid>
+
           <Grid item xs={4}>
             <TextField id='outlined-basic' label='Quantity' variant='outlined' />
           </Grid>
