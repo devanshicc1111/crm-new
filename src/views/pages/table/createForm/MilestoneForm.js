@@ -52,7 +52,7 @@ function MilestoneForm(props) {
           </Grid>
 
           <Grid item xs={4}>
-            <TextField id='outlined-basic' label='Quantity' variant='outlined' />
+            <TextField id='outlined-basic' label='Quantity' variant='outlined' type='number' />
           </Grid>
           <Grid item xs={4}>
             <TextField id='outlined-basic' label='Cost' variant='outlined' />
