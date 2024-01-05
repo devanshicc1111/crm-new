@@ -1,5 +1,5 @@
 import Grid from '@mui/material/Grid'
-import ProductTable from 'src/views/pages/table/ProductTable'
+import ProductTable from './ProductTable'
 
 const Products = () => {
   return (

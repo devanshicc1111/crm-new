@@ -15,13 +15,14 @@ import DeleteIcon from '@mui/icons-material/Delete'
 import CustomChip from 'src/@core/components/mui/chip'
 
 // ** Utils Import
+import { escapeRegExp } from '@mui/x-data-grid/utils/utils'
 
-import LeadForm from './LeadForm'
-import { Dialog, Fab, Tooltip } from '@mui/material'
+import { Collapse, Dialog, Fab, Tooltip } from '@mui/material'
 import AddIcon from '@mui/icons-material/Add'
 import LeadDetails from './LeadDetails'
 import LeadStepper from './LeadStepper'
 import HorizontalLinearStepper from './LeadStepper'
+import QuickSearchToolbar from '../GenericButton/QuickSearchToolbar'
 
 // ** renders client column
 const renderClient = params => {
@@ -59,7 +60,7 @@ const rows = [
 
     Account_name: 'Harmonia Nisius',
     Lead_title: 'Environmental Specialist',
-    Total_value: 109.52,
+    Total_value: 10909.52,
     status: 1
   }
 ]
@@ -154,7 +155,10 @@ const LeadTable = () => {
   const [stepperopen, setStepperopen] = useState(false)
 
   const [openDialog, setOpenDialog] = useState(false)
-
+  const [collapsed, setCollapsed] = useState(true)
+  const [data] = useState(rows)
+  const [filteredData, setFilteredData] = useState([])
+  const [searchText, setSearchText] = useState('')
   const handleSubmit = () => {
     setOpen(!open)
   }
@@ -166,6 +170,7 @@ const LeadTable = () => {
   const handleContactFormClose = () => {
     setOpen(false)
     setOpenDialog(false)
+    setStepperopen(false)
   }
 
   const handleContactFormSubmit = () => {
@@ -179,7 +184,22 @@ const LeadTable = () => {
   const handleDialogSubmit = params => {
     handleVisibilityIconClick()
   }
+  const handleSearch = searchValue => {
+    setSearchText(searchValue)
+    const searchRegex = new RegExp(escapeRegExp(searchValue), 'i')
 
+    const filteredRows = data.filter(row => {
+      return Object.keys(row).some(field => {
+        // @ts-ignore
+        return searchRegex.test(row[field].toString())
+      })
+    })
+    if (searchValue.length) {
+      setFilteredData(filteredRows)
+    } else {
+      setFilteredData([])
+    }
+  }
   return (
     <Card>
       <CardHeader
@@ -208,38 +228,52 @@ const LeadTable = () => {
         }
       />
       {/* <CardHeader title='Selection' action={<GenericAddIcon />} /> */}
-      <DataGrid
-        autoHeight
-        rows={rows}
-        columns={columns.map(col => ({
-          ...col,
-          renderCell: params => {
-            if (col.field === 'actions') {
-              return (
-                <div>
-                  <IconButton onClick={() => handleDialogSubmit(params)}>
-                    <VisibilityIcon />
-                  </IconButton>
-                  <IconButton>
-                    <DeleteIcon />
-                  </IconButton>
-                </div>
-              )
+
+      <Collapse in={collapsed}>
+        <DataGrid
+          sx={{ display: 'flex' }}
+          autoHeight
+          slots={{ toolbar: QuickSearchToolbar }}
+          rows={filteredData.length ? filteredData : data}
+          columns={columns.map(col => ({
+            ...col,
+            renderCell: params => {
+              if (col.field === 'actions') {
+                return (
+                  <div>
+                    <IconButton onClick={() => handleDialogSubmit(params)}>
+                      <VisibilityIcon />
+                    </IconButton>
+                    <IconButton>
+                      <DeleteIcon />
+                    </IconButton>
+                  </div>
+                )
+              }
+
+              return col.renderCell(params)
             }
+          }))}
+          checkboxSelection
+          pageSizeOptions={[7, 10, 25, 50]}
+          paginationModel={paginationModel}
+          onPaginationModelChange={setPaginationModel}
+          slotProps={{
+            baseButton: {
+              size: 'medium',
+              variant: 'outlined'
+            },
+            toolbar: {
+              value: searchText,
+              clearSearch: () => handleSearch(''),
+              onChange: event => handleSearch(event.target.value)
+            }
+          }}
+        />
+      </Collapse>
 
-            return col.renderCell(params)
-          }
-        }))}
-        checkboxSelection
-        pageSizeOptions={[7, 10, 25, 50]}
-        paginationModel={paginationModel}
-        onPaginationModelChange={setPaginationModel}
-      />
-      {/* <LeadForm  />
-       */}
-
-      <Dialog open={stepperopen}>
-        <HorizontalLinearStepper />
+      <Dialog open={stepperopen} onClose={handleContactFormClose}>
+        <HorizontalLinearStepper handleClose={handleContactFormClose} handleDialogSubmit={handleVisibilityIconClick} />
       </Dialog>
 
       <LeadDetails

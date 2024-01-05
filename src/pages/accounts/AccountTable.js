@@ -1,6 +1,6 @@
 // ** React Import
 import { useState } from 'react'
-import { Fab, Tooltip } from '@mui/material'
+import { Collapse, Fab, Icon, InputBase, Tooltip } from '@mui/material'
 import AddIcon from '@mui/icons-material/Add'
 
 // ** MUI Imports
@@ -20,9 +20,9 @@ import CustomAvatar from 'src/@core/components/mui/avatar'
 
 // ** Utils Import
 import { getInitials } from 'src/@core/utils/get-initials'
-import AccountForm from './createForm/AccountForm'
-import GenericAddIcon from './GenericButton/GenericAddIcon'
-import AccountDetails from './details/AccountDetails'
+import AccountForm from './AccountForm'
+import AccountDetails from './AccountDetails'
+import QuickSearchToolbar from 'src/GenericButton/QuickSearchToolBar'
 
 // ** renders client column
 const renderClient = params => {
@@ -238,15 +238,17 @@ const columns = [
     headerName: 'Actions',
     renderCell: params => {
       return (
-        <div>
-          <IconButton>
-            <VisibilityIcon />
-          </IconButton>
-          <IconButton>
-            <DeleteIcon />
-          </IconButton>
-          <AccountDetails />
-        </div>
+        <>
+          <div>
+            <IconButton>
+              <VisibilityIcon />
+            </IconButton>
+            <IconButton>
+              <DeleteIcon />
+            </IconButton>
+            <AccountDetails />
+          </div>
+        </>
       )
     }
   }
@@ -257,7 +259,10 @@ const AccountTable = () => {
   const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 7 })
   const [open, setOpen] = useState(false)
   const [openDialog, setOpenDialog] = useState(false)
-
+  const [collapsed, setCollapsed] = useState(true)
+  const [searchText, setSearchText] = useState('')
+  const [data] = useState(rows)
+  const [filteredData, setFilteredData] = useState([])
   const handleSubmit = () => {
     setOpen(!open)
   }
@@ -278,64 +283,115 @@ const AccountTable = () => {
   const handleDialogSubmit = params => {
     handleVisibilityIconClick()
   }
+  const handleSearch = searchValue => {
+    setSearchText(searchValue)
+    const searchRegex = new RegExp(escapeRegExp(searchValue), 'i')
 
+    const filteredRows = data.filter(row => {
+      return Object.keys(row).some(field => {
+        // @ts-ignore
+        return searchRegex.test(row[field].toString())
+      })
+    })
+    if (searchValue.length) {
+      setFilteredData(filteredRows)
+    } else {
+      setFilteredData([])
+    }
+  }
   return (
     <Card className='tableGrid'>
       <CardHeader
         title='ACCOUNTS'
         action={
-          <div>
-            <div className='PaIconCon'>
-              <Tooltip title='CREATE ACCOUNT' placement='top'>
-                <span>
-                  <Fab
-                    style={{
-                      width: '2.2rem',
-                      height: '.1rem',
-                      backgroundColor: '#7367F0'
-                    }}
-                    onClick={handleSubmit}
-                  >
-                    <AddIcon style={{ fontSize: '19', color: '#fff' }} />
-                  </Fab>
-                </span>
-              </Tooltip>
-            </div>
+          <>
+            <div style={{ display: 'flex' }}>
+              <div>
+                <Tooltip>
+                  <span>
+                    <IconButton
+                      size='small'
+                      aria-label='collapse'
+                      sx={{ color: 'text.secondary' }}
+                      onClick={() => setCollapsed(!collapsed)}
+                    >
+                      <Icon icon={!collapsed ? 'tabler:chevron-down' : 'tabler:chevron-up'} />
+                    </IconButton>
+                  </span>
+                </Tooltip>
+              </div>
+              <div>
+                <div className='PaIconCon'>
+                  <Tooltip title='CREATE ACCOUNT' placement='top'>
+                    <span>
+                      <Fab
+                        style={{
+                          width: '2.2rem',
+                          height: '2.2rem',
+                          backgroundColor: '#7367F0',
+                          marginRight: '2.4rem'
+                        }}
+                        onClick={handleSubmit}
+                      >
+                        <AddIcon style={{ fontSize: '19', color: '#fff' }} />
+                      </Fab>
+                    </span>
+                  </Tooltip>
+                </div>
 
-            <AccountForm />
-          </div>
+                <AccountForm />
+              </div>
+            </div>
+          </>
         }
       />
 
-      <DataGrid
-        autoHeight
-        rows={rows}
-        columns={columns.map(col => ({
-          ...col,
-          renderCell: params => {
-            if (col.field === 'actions') {
-              return (
-                <div>
-                  <IconButton onClick={() => handleDialogSubmit(params)}>
-                    <VisibilityIcon />
-                  </IconButton>
-                  <IconButton>
-                    <DeleteIcon />
-                  </IconButton>
-                </div>
-              )
+      <Collapse in={collapsed}>
+        <DataGrid
+          sx={{ display: 'flex' }}
+          autoHeight
+          slots={{ toolbar: QuickSearchToolbar }}
+          rows={filteredData.length ? filteredData : data}
+          columns={columns.map(col => ({
+            ...col,
+            renderCell: params => {
+              if (col.field === 'actions') {
+                return (
+                  <div>
+                    <IconButton onClick={() => handleDialogSubmit(params)}>
+                      <VisibilityIcon />
+                    </IconButton>
+                    <IconButton>
+                      <DeleteIcon />
+                    </IconButton>
+                  </div>
+                )
+              }
+
+              return col.renderCell(params)
             }
+          }))}
+          checkboxSelection
+          pageSizeOptions={[7, 10, 25, 50]}
+          paginationModel={paginationModel}
+          onPaginationModelChange={setPaginationModel}
+          slotProps={{
+            baseButton: {
+              size: 'medium',
+              variant: 'outlined'
+            },
+            toolbar: {
+              value: searchText,
+              clearSearch: () => handleSearch(''),
+              onChange: event => handleSearch(event.target.value)
+            }
+          }}
+        />
+      </Collapse>
 
-            return col.renderCell(params)
-          }
-        }))}
-        checkboxSelection
-        pageSizeOptions={[7, 10, 25, 50]}
-        paginationModel={paginationModel}
-        onPaginationModelChange={setPaginationModel}
-      />
-
+      {/* --------------------------- CREATE  ACOUNT FORM   */}
       <AccountForm open={open} handleClose={handleContactFormClose} handleSubmit={handleContactFormSubmit} />
+      {/* -------------------------------CREATE VisibilityIcon Form*/}
       <AccountDetails
         open={openDialog}
         handleClose={handleContactFormClose}

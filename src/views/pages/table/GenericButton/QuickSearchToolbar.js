@@ -14,7 +14,7 @@ import CustomTextField from 'src/@core/components/mui/text-field'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
-import MilestoneForm from '../createForm/MilestoneForm'
+// import MilestoneForm from '../createForm/MilestoneForm'
 
 const QuickSearchToolbar = props => {
   const [open, setOpen] = useState(false)
@@ -29,7 +29,6 @@ const QuickSearchToolbar = props => {
 
   return (
     <>
-      {' '}
       <div>
         <Box
           sx={{
@@ -38,7 +37,11 @@ const QuickSearchToolbar = props => {
             flexWrap: 'wrap',
             alignItems: 'center',
             justifyContent: 'space-between',
-            p: theme => theme.spacing(2, 5, 4, 5)
+            p: theme => theme.spacing(2, 5, 4, 5),
+            position: 'absolute',
+            zIndex: '1000',
+            top: '-59px',
+            marginLeft: '50rem'
           }}
         >
           {/* <Typography variant='h5'>Cart</Typography> */}
@@ -73,8 +76,8 @@ const QuickSearchToolbar = props => {
           </div>
 
           <GridToolbarFilterButton />
-          <div className='PaIconCon'>
-            <Tooltip title='Add Product'>
+          {/* <div className='PaIconCon'> */}
+          {/* <Tooltip title='Add Product'>
               <span>
                 <Fab
                   style={{
@@ -87,15 +90,15 @@ const QuickSearchToolbar = props => {
                   <AddIcon style={{ fontSize: '19', color: '#fff' }} />
                 </Fab>
               </span>
-            </Tooltip>
-          </div>
+            </Tooltip> */}
+          {/* </div> */}
         </Box>
       </div>
-      <div>
+      {/* <div>
         <Dialog onClose={handleClose} className='dialofAction' open={open} aria-labelledby='draggable-dialog-title'>
           <MilestoneForm handleClose={handleClose} />
         </Dialog>
-      </div>
+      </div> */}
     </>
   )
 }

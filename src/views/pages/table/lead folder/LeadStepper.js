@@ -3,18 +3,13 @@ import Box from '@mui/material/Box'
 import Stepper from '@mui/material/Stepper'
 import Step from '@mui/material/Step'
 import StepLabel from '@mui/material/StepLabel'
-import Button from '@mui/material/Button'
-import Typography from '@mui/material/Typography'
 import LeadForm from './LeadForm'
-import ProductValue from './ProductValue'
+import MilestoneDetail from './MilestoneDetail'
+import { Dialog, Grid } from '@mui/material'
 
-export default function HorizontalLinearStepper(props) {
+export default function HorizontalLinearStepper() {
   const [activeStep, setActiveStep] = React.useState(0)
   const [skipped, setSkipped] = React.useState(new Set())
-
-  const isStepOptional = step => {
-    return step === 1
-  }
 
   const isStepSkipped = step => {
     return skipped.has(step)
@@ -35,34 +30,14 @@ export default function HorizontalLinearStepper(props) {
     setActiveStep(prevActiveStep => prevActiveStep - 1)
   }
 
-  const handleSkip = () => {
-    if (!isStepOptional(activeStep)) {
-      throw new Error("You can't skip a step that isn't optional.")
-    }
-
-    setActiveStep(prevActiveStep => prevActiveStep + 1)
-    setSkipped(prevSkipped => {
-      const newSkipped = new Set(prevSkipped.values())
-      newSkipped.add(activeStep)
-      return newSkipped
-    })
-  }
-
-  const handleReset = () => {
-    setActiveStep(0)
-  }
-
   const steps = ['CREATE LEAD', 'SELECT PRODUCT']
-
   return (
-    <Box sx={{ width: '100%' }}>
+    <Box sx={{ width: '100%', padding: '0.7rem' }}>
       <Stepper activeStep={activeStep}>
         {steps.map((label, index) => {
           const stepProps = {}
           const labelProps = {}
-          if (isStepOptional(index)) {
-            labelProps.optional = <Typography variant='caption'></Typography>
-          }
+
           if (isStepSkipped(index)) {
             stepProps.completed = false
           }
@@ -73,22 +48,17 @@ export default function HorizontalLinearStepper(props) {
           )
         })}
       </Stepper>
-      {activeStep === steps.length ? (
-        <React.Fragment>
-          <Typography sx={{ mt: 2, mb: 1 }}>All steps completed - you&apos;re finished</Typography>
-          <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
-            <Box sx={{ flex: '1 1 auto' }} />
-            <Button onClick={handleReset}>Reset</Button>
-          </Box>
-        </React.Fragment>
-      ) : (
-        <React.Fragment>
-          <Box sx={{ flex: '1 1 auto' }} />
+      <Grid>
+        {activeStep === steps.length ? null : (
+          <React.Fragment>
+            <Box sx={{ flex: '1 1 auto', height: '17px' }} />
 
-          {activeStep === 0 && <LeadForm handleNext={handleNext} />}
-          {activeStep === 1 && <ProductValue handleNext={handleNext} />}
-        </React.Fragment>
-      )}
+            {activeStep === 0 && <LeadForm handleNext={handleNext} />}
+
+            {activeStep === 1 && <MilestoneDetail handleNext={handleNext} onBack={handleBack} />}
+          </React.Fragment>
+        )}
+      </Grid>
     </Box>
   )
 }
