@@ -1,6 +1,6 @@
 // ** MUI Imports
 import Grid from '@mui/material/Grid'
-import AccountTable from 'src/views/pages/table/AccountTable'
+import AccountTable from './AccountTable'
 
 const Accounts = () => {
   return (

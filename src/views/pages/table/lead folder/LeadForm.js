@@ -5,15 +5,14 @@ import DialogContent from '@mui/material/DialogContent'
 import DialogActions from '@mui/material/DialogActions'
 import DoneIcon from '@mui/icons-material/Done'
 import CloseIcon from '@mui/icons-material/Close'
-import { Tooltip, IconButton, Grid, Button, TextField, Autocomplete, Dialog } from '@mui/material'
+import { Grid, Button, TextField, Autocomplete, Dialog } from '@mui/material'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
-import { GridCloseIcon } from '@mui/x-data-grid'
 
 const statusS = ['NEW', 'UPSIDE', 'STRONG UPSIDE', 'COMMIT', 'LOST']
 
 const LeadForm = props => {
-  const { handleNext, open, handleClose, editdata } = props
+  const { handleNext } = props
 
   const initialValues = {
     account: '',
@@ -23,12 +22,10 @@ const LeadForm = props => {
   }
 
   const validationSchema = Yup.object().shape({
-    account: Yup.string().required('Account is required'),
+    // account: Yup.string().required('Account is required'),
     status: Yup.string().required('Status is required'),
     leadTitle: Yup.string().required('Lead Title is required'),
-    description: Yup.string()
-      .notRequired() // Makes the field not required
-      .max(100, 'Description must not exceed 100 characters')
+    description: Yup.string().notRequired().max(100, 'Description must not exceed 100 characters')
   })
 
   const formik = useFormik({
@@ -42,6 +39,9 @@ const LeadForm = props => {
 
   return (
     <>
+      {/* <Dialog>
+
+      </Dialog> */}
       <form onSubmit={formik.handleSubmit}>
         <DialogContent dividers>
           <Grid container spacing={2}>
@@ -72,7 +72,7 @@ const LeadForm = props => {
                 disablePortal
                 id='combo-box-demo'
                 size='small'
-                value={formik.values.status || ''}
+                value={formik.values.status}
                 options={statusS}
                 onChange={(e, newValue) => {
                   newValue ? formik.setFieldValue('status', newValue) : formik.setFieldValue('status', '')
@@ -119,7 +119,7 @@ const LeadForm = props => {
             </Grid>
           </Grid>
         </DialogContent>
-        <DialogActions>
+        <DialogActions sx={{ padding: '0', marginTop: '11px' }}>
           <Button
             endIcon={<CloseIcon />}
             onClick={() => formik.handleReset()}
@@ -138,8 +138,6 @@ const LeadForm = props => {
             variant='contained'
             color='primary'
             disableElevation
-            style={{ backgroundColor: ' #FFAF38', color: 'black' }}
-            onClick={props.handleNext}
           >
             SUBMIT
           </Button>

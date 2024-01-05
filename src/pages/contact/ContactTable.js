@@ -11,13 +11,15 @@ import Button from '@mui/material/Button'
 import VisibilityIcon from '@mui/icons-material/Visibility'
 import IconButton from '@mui/material/IconButton'
 import DeleteIcon from '@mui/icons-material/Delete'
-import ContactForm from './createForm/ContactForm'
-import { Fab, Tooltip } from '@mui/material'
+import ContactForm from './ContactForm'
+import { Collapse, Fab, Icon, Tooltip } from '@mui/material'
 import AddIcon from '@mui/icons-material/Add'
-import ContactDetails from './details/ContactDetails'
 
 // ** Utils Import
 import { getInitials } from 'src/@core/utils/get-initials'
+import ContactDetails from './ContactDetails'
+import QuickSearchToolbar from 'src/GenericButton/QuickSearchToolBar'
+import { escapeRegExp } from '@mui/x-data-grid/utils/utils'
 
 // ** renders client column
 const renderClient = params => {
@@ -204,7 +206,10 @@ const ContactTable = () => {
   const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 7 })
   const [open, setOpen] = useState(false)
   const [openDialog, setOpenDialog] = useState(false)
-
+  const [data] = useState(rows)
+  const [filteredData, setFilteredData] = useState([])
+  const [collapsed, setCollapsed] = useState(true)
+  const [searchText, setSearchText] = useState('')
   const handleSubmit = () => {
     setOpen(!open)
   }
@@ -221,63 +226,114 @@ const ContactTable = () => {
   const handleVisibilityIconClick = () => {
     setOpenDialog(true)
   }
-
   const handleDialogSubmit = params => {
     handleVisibilityIconClick()
   }
+  const handleSearch = searchValue => {
+    setSearchText(searchValue)
+    const searchRegex = new RegExp(escapeRegExp(searchValue), 'i')
 
+    const filteredRows = data.filter(row => {
+      return Object.keys(row).some(field => {
+        // @ts-ignore
+        return searchRegex.test(row[field].toString())
+      })
+    })
+    if (searchValue.length) {
+      setFilteredData(filteredRows)
+    } else {
+      setFilteredData([])
+    }
+  }
   return (
     <Card>
       <CardHeader
-        title='CONTACTS'
+        title='CONTACTS '
         action={
-          <div>
-            <div className='PaIconCon'>
-              <Tooltip title='CREATE CONTACT' placement='top'>
-                <span>
-                  <Fab
-                    style={{
-                      width: '2.2rem',
-                      height: '.1rem',
-                      backgroundColor: '#7367F0'
-                    }}
-                    onClick={handleSubmit}
-                  >
-                    <AddIcon style={{ fontSize: '19', color: '#fff' }} />
-                  </Fab>
-                </span>
-              </Tooltip>
+          <>
+            <div style={{ display: 'flex' }}>
+              <div>
+                <Tooltip>
+                  <span>
+                    <IconButton
+                      size='small'
+                      aria-label='collapse'
+                      sx={{ color: 'text.secondary' }}
+                      onClick={() => setCollapsed(!collapsed)}
+                    >
+                      <Icon icon={!collapsed ? 'tabler:chevron-down' : 'tabler:chevron-up'} />
+                    </IconButton>
+                  </span>
+                </Tooltip>
+              </div>
+              <div>
+                <div className='PaIconCon'>
+                  <Tooltip title='CREATE ACCOUNT' placement='top'>
+                    <span>
+                      <Fab
+                        style={{
+                          width: '2.3rem',
+                          height: '2.3rem',
+                          backgroundColor: '#7367F0',
+                          marginRight: '1rem'
+                        }}
+                        onClick={handleSubmit}
+                      >
+                        <AddIcon style={{ fontSize: '19', color: '#fff' }} />
+                      </Fab>
+                    </span>
+                  </Tooltip>
+                </div>
+
+                <ContactForm />
+              </div>
             </div>
-          </div>
+          </>
         }
       />
-      <DataGrid
-        autoHeight
-        rows={rows}
-        columns={columns.map(col => ({
-          ...col,
-          renderCell: params => {
-            if (col.field === 'actions') {
-              return (
-                <div>
-                  <IconButton onClick={() => handleDialogSubmit(params)}>
-                    <VisibilityIcon />
-                  </IconButton>
-                  <IconButton>
-                    <DeleteIcon />
-                  </IconButton>
-                </div>
-              )
-            }
 
-            return col.renderCell(params)
-          }
-        }))}
-        checkboxSelection
-        pageSizeOptions={[7, 10, 25, 50]}
-        paginationModel={paginationModel}
-        onPaginationModelChange={setPaginationModel}
-      />
+      <Collapse in={collapsed}>
+        <DataGrid
+          sx={{ display: 'flex' }}
+          autoHeight
+          slots={{ toolbar: QuickSearchToolbar }}
+          rows={filteredData.length ? filteredData : data}
+          columns={columns.map(col => ({
+            ...col,
+            renderCell: params => {
+              if (col.field === 'actions') {
+                return (
+                  <div>
+                    <IconButton onClick={() => handleDialogSubmit(params)}>
+                      <VisibilityIcon />
+                    </IconButton>
+                    <IconButton>
+                      <DeleteIcon />
+                    </IconButton>
+                  </div>
+                )
+              }
+
+              return col.renderCell(params)
+            }
+          }))}
+          checkboxSelection
+          pageSizeOptions={[7, 10, 25, 50]}
+          paginationModel={paginationModel}
+          onPaginationModelChange={setPaginationModel}
+          slotProps={{
+            baseButton: {
+              size: 'medium',
+              variant: 'outlined'
+            },
+            toolbar: {
+              value: searchText,
+              clearSearch: () => handleSearch(''),
+              onChange: event => handleSearch(event.target.value)
+            }
+          }}
+        />
+      </Collapse>
       <ContactForm open={open} handleClose={handleContactFormClose} handleSubmit={handleContactFormSubmit} />
       <ContactDetails
         open={openDialog}
@@ -289,3 +345,28 @@ const ContactTable = () => {
 }
 
 export default ContactTable
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

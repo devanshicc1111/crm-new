@@ -1,6 +1,6 @@
 import Grid from '@mui/material/Grid'
 import LeadTable from 'src/views/pages/table/lead folder/LeadTable'
-import TableSelection from 'src/views/pages/table/DealsTable'
+
 
 const Leads = () => {
   return (

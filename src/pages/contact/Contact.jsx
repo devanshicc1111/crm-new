@@ -1,5 +1,5 @@
 import Grid from '@mui/material/Grid'
-import ContactTable from 'src/views/pages/table/ContactTable'
+import ContactTable from './ContactTable'
 
 const Contact = () => {
   return (

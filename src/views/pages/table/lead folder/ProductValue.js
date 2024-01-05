@@ -1,9 +1,11 @@
 import React, { useMemo, useState } from 'react'
 
-import { Paper, Grid, DialogActions, Button } from '@mui/material'
-import MilestoneDetail from './MilestoneDetail'
+import { Paper, Grid, DialogActions, Button, MaterialReactTable } from '@mui/material'
+// import MilestoneDetail from './MilestoneDetail'
 import DoneIcon from '@mui/icons-material/Done'
 import CloseIcon from '@mui/icons-material/Close'
+// import { MaterialReactTable } from 'material-react-table'
+
 const ProductValue = props => {
   const [pageSize, setPageSize] = useState(10)
   const [currentPage, setCurrentPage] = useState(0)
@@ -43,7 +45,9 @@ const ProductValue = props => {
       </>
     )
   }
-
+  const handleSubmit = () => {
+    closeDialog()
+  }
   return (
     <>
       <Paper
@@ -58,7 +62,7 @@ const ProductValue = props => {
         }}
       >
         <div>
-          <MilestoneDetail
+          <MaterialReactTable
             columns={columns}
             displayColumnDefOptions={{
               'mrt-row-select': {
@@ -109,7 +113,6 @@ const ProductValue = props => {
             <Button
               endIcon={<CloseIcon />}
               onClick={() => formik.handleReset()}
-              className='reset-button'
               type='reset'
               variant='contained'
               color='primary'
@@ -117,16 +120,7 @@ const ProductValue = props => {
             >
               RESET
             </Button>
-            <Button
-              endIcon={<DoneIcon />}
-              className='save-button'
-              type='submit'
-              variant='contained'
-              color='primary'
-              disableElevation
-              style={{ backgroundColor: ' #FFAF38', color: 'black' }}
-              onClick={props.handleNext}
-            >
+            <Button endIcon={<DoneIcon />} type='submit' variant='contained' color='primary' disableElevation>
               SUBMIT
             </Button>
           </DialogActions>
