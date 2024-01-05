@@ -14,18 +14,27 @@ import LeadProductTable from '../details/LeadProductTable'
 import LeadMileStoneTable from '../details/LeadMileStoneTable'
 import QuotationList from '../details/QuotationList'
 import LeadTimeline from '../details/LeadTimeline'
+import DatePickerWrapper from 'src/@core/styles/libs/react-datepicker'
 import DatePicker from 'react-datepicker'
+import CustomTextField from 'src/@core/components/mui/text-field'
+
+// import { DatePicker } from '@mui/x-date-pickers/DatePicker'
 
 const Transition = forwardRef(function Transition(props, ref) {
   return <Slide direction='up' ref={ref} {...props} />
+})
+
+const CustomInput = forwardRef(({ ...props }, ref) => {
+  return <CustomTextField fullWidth label='Start Date' inputRef={ref} {...props} />
 })
 
 const LeadDetails = ({ open, handleClose, handleDialogSubmit }) => {
   const [collapsed, setCollapsed] = useState(true)
   const [collapseQuotation, setCollapseQuotation] = useState(true)
   const [notesCollapse, setNotesCollapse] = useState(true)
-  const [historyCollapse, setHistoryCollapse] = useState(true)
-  const [date, setDate] = useState(new Date())
+  const [issueDate, setIssueDate] = useState(new Date())
+  const dateFormate = new Date(issueDate).toLocaleDateString('en-IN')
+  console.log('dateFormate', dateFormate)
 
   return (
     <Dialog
@@ -66,6 +75,18 @@ const LeadDetails = ({ open, handleClose, handleDialogSubmit }) => {
       >
         <Grid xs={12}>
           <Card sx={{ position: 'relative', marginTop: 3, marginLeft: 3, padding: 2 }}>
+            {/* <Grid>
+              <DatePickerWrapper>
+                <DatePicker
+                  isClearable
+                  fullWidth
+                  id='issue-date'
+                  selected={issueDate}
+                  customInput={<CustomInput />}
+                  onChange={date => setIssueDate(date)}
+                />
+              </DatePickerWrapper>
+            </Grid> */}
             <LeadStatus />
           </Card>
         </Grid>

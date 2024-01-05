@@ -102,3 +102,11 @@ code[class*='language-'] {
 .MuiButtonBase-root.MuiButton-root.MuiButton-outlined.MuiButton-outlinedPrimary.MuiButton-sizeMedium.MuiButton-outlinedSizeMedium.MuiButton-root.MuiButton-outlined.MuiButton-outlinedPrimary.MuiButton-sizeMedium.MuiButton-outlinedSizeMedium.css-mqa3dm-MuiButtonBase-root-MuiButton-root {
   height: 37px;
 }
+/* --------------------------------Date Picker---------------------------- */
+.MuiInputBase-root.MuiOutlinedInput-root.MuiInputBase-colorPrimary.MuiInputBase-formControl.MuiInputBase-adornedEnd.Mui-readOnly.MuiInputBase-readOnly.css-1i03c3l-MuiInputBase-root-MuiOutlinedInput-root {
+  width: 70%;
+}
+
+.MuiInputBase-root.MuiOutlinedInput-root.MuiInputBase-colorPrimary.MuiInputBase-formControl.MuiInputBase-adornedEnd.css-1i03c3l-MuiInputBase-root-MuiOutlinedInput-root {
+  width: 75%;
+}
