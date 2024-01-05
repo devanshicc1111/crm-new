@@ -159,6 +159,7 @@ const LeadTable = () => {
   const [data] = useState(rows)
   const [filteredData, setFilteredData] = useState([])
   const [searchText, setSearchText] = useState('')
+
   const handleSubmit = () => {
     setOpen(!open)
   }
@@ -184,6 +185,7 @@ const LeadTable = () => {
   const handleDialogSubmit = params => {
     handleVisibilityIconClick()
   }
+
   const handleSearch = searchValue => {
     setSearchText(searchValue)
     const searchRegex = new RegExp(escapeRegExp(searchValue), 'i')
@@ -200,6 +202,7 @@ const LeadTable = () => {
       setFilteredData([])
     }
   }
+
   return (
     <Card>
       <CardHeader

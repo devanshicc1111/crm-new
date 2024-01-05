@@ -263,6 +263,7 @@ const AccountTable = () => {
   const [searchText, setSearchText] = useState('')
   const [data] = useState(rows)
   const [filteredData, setFilteredData] = useState([])
+
   const handleSubmit = () => {
     setOpen(!open)
   }
@@ -283,6 +284,7 @@ const AccountTable = () => {
   const handleDialogSubmit = params => {
     handleVisibilityIconClick()
   }
+
   const handleSearch = searchValue => {
     setSearchText(searchValue)
     const searchRegex = new RegExp(escapeRegExp(searchValue), 'i')
@@ -299,6 +301,7 @@ const AccountTable = () => {
       setFilteredData([])
     }
   }
+
   return (
     <Card className='tableGrid'>
       <CardHeader
@@ -325,7 +328,7 @@ const AccountTable = () => {
                   <Tooltip title='CREATE ACCOUNT' placement='top'>
                     <span>
                       <Fab
-                        style={{
+                        sx={{
                           width: '2.2rem',
                           height: '2.2rem',
                           backgroundColor: '#7367F0',

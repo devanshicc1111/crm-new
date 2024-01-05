@@ -13,16 +13,13 @@ const QuickSearchToolbar = props => {
   return (
     <Box
       sx={{
-        gap: 2,
         display: 'flex',
-        flexWrap: 'wrap',
-        alignItems: 'center',
-        justifyContent: 'space-between',
+        gap: 2,
         p: theme => theme.spacing(2, 5, 4, 5),
         position: 'absolute',
-        top: '-56px',
+        right: 110,
         zIndex: '1000',
-        marginLeft: '49rem'
+        top: '-54px'
       }}
     >
       <div>
