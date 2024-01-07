@@ -7,6 +7,7 @@ import { useFormik } from 'formik'
 import DoneIcon from '@mui/icons-material/Done'
 import CloseIcon from '@mui/icons-material/Close'
 import FileUploadIcon from '@mui/icons-material/FileUpload'
+
 const ContactForm = ({ open, handleClose, handleSubmit }) => {
   const [ContactName, setContactName] = useState('')
   const formValidation = () => {}
@@ -48,6 +49,7 @@ const ContactForm = ({ open, handleClose, handleSubmit }) => {
   const handleReset = formik => {
     formik.resetForm()
   }
+
   return (
     <Dialog onClose={handleClose} aria-labelledby='customized-dialog-title' open={open}>
       <DialogTitle sx={{ p: 2, paddingLeft: '0.9rem', fontSize: '1.5rem' }} id='customized-dialog-title'>

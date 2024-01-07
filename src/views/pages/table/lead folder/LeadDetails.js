@@ -14,11 +14,8 @@ import LeadProductTable from '../details/LeadProductTable'
 import LeadMileStoneTable from '../details/LeadMileStoneTable'
 import QuotationList from '../details/QuotationList'
 import LeadTimeline from '../details/LeadTimeline'
-import DatePickerWrapper from 'src/@core/styles/libs/react-datepicker'
-import DatePicker from 'react-datepicker'
 import CustomTextField from 'src/@core/components/mui/text-field'
-
-// import { DatePicker } from '@mui/x-date-pickers/DatePicker'
+import DatePicker from 'react-datepicker'
 
 const Transition = forwardRef(function Transition(props, ref) {
   return <Slide direction='up' ref={ref} {...props} />
@@ -32,9 +29,7 @@ const LeadDetails = ({ open, handleClose, handleDialogSubmit }) => {
   const [collapsed, setCollapsed] = useState(true)
   const [collapseQuotation, setCollapseQuotation] = useState(true)
   const [notesCollapse, setNotesCollapse] = useState(true)
-  const [issueDate, setIssueDate] = useState(new Date())
-  const dateFormate = new Date(issueDate).toLocaleDateString('en-IN')
-  console.log('dateFormate', dateFormate)
+  const [date, setDate] = useState(new Date())
 
   return (
     <Dialog
@@ -75,18 +70,20 @@ const LeadDetails = ({ open, handleClose, handleDialogSubmit }) => {
       >
         <Grid xs={12}>
           <Card sx={{ position: 'relative', marginTop: 3, marginLeft: 3, padding: 2 }}>
-            {/* <Grid>
-              <DatePickerWrapper>
+            <Grid>
+              <div>
                 <DatePicker
-                  isClearable
-                  fullWidth
-                  id='issue-date'
-                  selected={issueDate}
-                  customInput={<CustomInput />}
-                  onChange={date => setIssueDate(date)}
+                  readOnly
+                  selected={date}
+                  id='read-only-input'
+                  popperPlacement={popperPlacement}
+                  onChange={date => setDate(date)}
+                  placeholderText='Click to select a date'
+                  customInput={<CustomInput readOnly label='Readonly' />}
                 />
-              </DatePickerWrapper>
-            </Grid> */}
+              </div>
+            </Grid>
+
             <LeadStatus />
           </Card>
         </Grid>

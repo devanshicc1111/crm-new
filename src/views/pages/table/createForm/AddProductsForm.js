@@ -1,5 +1,5 @@
 import React from 'react'
-import { Tooltip, IconButton, Grid, Button, Autocomplete } from '@mui/material'
+import { Tooltip, IconButton, Grid, Button, Autocomplete, Paper } from '@mui/material'
 import DialogTitle from '@mui/material/DialogTitle'
 import DialogContent from '@mui/material/DialogContent'
 import DialogActions from '@mui/material/DialogActions'
@@ -7,6 +7,10 @@ import CloseIcon from '@mui/icons-material/Close'
 import TextField from '@mui/material/TextField'
 
 function AddProductsForm(props) {
+  const { handleClose } = props
+
+  const products = [{ label: 'CRM' }, { label: 'Team Sync' }, { label: 'newPA' }]
+
   return (
     <div>
       <DialogTitle style={{ cursor: 'move' }} id='draggable-dialog-title'>
@@ -30,11 +34,14 @@ function AddProductsForm(props) {
         <Grid container spacing={2}>
           <Grid item xs={4}>
             <Autocomplete
-              name='status'
+              size='small'
               disablePortal
               id='combo-box-demo'
-              size='small'
-              renderInput={params => <TextField {...params} label='Product/Service' />}
+              options={products}
+              sx={{ width: 300 }}
+              renderInput={params => <TextField {...params} label='Status' />}
+              PaperComponent={({ children }) => <Paper style={{ maxHeight: 200, overflow: 'auto' }}>{children}</Paper>}
+              style={{ width: '100%' }}
             />
           </Grid>
           <Grid item xs={4}>
@@ -46,7 +53,7 @@ function AddProductsForm(props) {
         </Grid>
       </DialogContent>
       <DialogActions>
-        <Button type='reset' variant='contained' sx={{ marginLeft: '0.5rem' }}>
+        <Button onClick={handleClose} type='reset' variant='contained' sx={{ marginLeft: '0.5rem' }}>
           Submit
         </Button>
       </DialogActions>
