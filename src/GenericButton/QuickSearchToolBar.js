@@ -17,9 +17,9 @@ const QuickSearchToolbar = props => {
         gap: 2,
         p: theme => theme.spacing(2, 5, 4, 5),
         position: 'absolute',
-        right: 110,
+        right: 80,
         zIndex: '1000',
-        top: '-54px'
+        top: '-60px'
       }}
     >
       <div>

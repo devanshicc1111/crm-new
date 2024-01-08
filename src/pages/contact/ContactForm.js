@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Button, Dialog, DialogTitle, Grid, Icon, IconButton, TextField, Tooltip } from '@mui/material'
+import { Button, Dialog, DialogTitle, Divider, Grid, Icon, IconButton, TextField, Tooltip } from '@mui/material'
 import { GridCloseIcon } from '@mui/x-data-grid'
 
 import * as Yup from 'yup'
@@ -168,6 +168,7 @@ const ContactForm = ({ open, handleClose, handleSubmit }) => {
               helperText={formik.touched.description && formik.errors.description}
             />
           </Grid>
+          <Divider />
           <Grid item xs={12} sx={{ marginTop: '0.3rem' }}>
             <MultipleArray />
           </Grid>

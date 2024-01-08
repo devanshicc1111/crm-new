@@ -19,7 +19,7 @@ import AddIcon from '@mui/icons-material/Add'
 import { getInitials } from 'src/@core/utils/get-initials'
 import ContactDetails from './ContactDetails'
 import QuickSearchToolbar from 'src/GenericButton/QuickSearchToolBar'
-import { escapeRegExp } from '@mui/x-data-grid/utils/utils'
+// import { escapeRegExp } from '@mui/x-data-grid/utils/utils'
 
 // ** renders client column
 const renderClient = params => {
@@ -251,42 +251,23 @@ const ContactTable = () => {
         title='CONTACTS '
         action={
           <>
-            <div style={{ display: 'flex' }}>
-              <div>
-                <Tooltip>
+            <div className='PaIconCon'>
+              <IconButton>
+                <Tooltip title='CREATE LEAD' placement='top'>
                   <span>
-                    <IconButton
-                      size='small'
-                      aria-label='collapse'
-                      sx={{ color: 'text.secondary' }}
-                      onClick={() => setCollapsed(!collapsed)}
+                    <Fab
+                      style={{
+                        width: '2.2rem',
+                        height: '.1rem',
+                        backgroundColor: '#7367F0'
+                      }}
+                      onClick={handleSubmit}
                     >
-                      <Icon icon={!collapsed ? 'tabler:chevron-down' : 'tabler:chevron-up'} />
-                    </IconButton>
+                      <AddIcon style={{ fontSize: '19', color: '#fff' }} />
+                    </Fab>
                   </span>
                 </Tooltip>
-              </div>
-              <div>
-                <div className='PaIconCon'>
-                  <Tooltip title='CREATE ACCOUNT' placement='top'>
-                    <span>
-                      <Fab
-                        style={{
-                          width: '2.3rem',
-                          height: '2.3rem',
-                          backgroundColor: '#7367F0',
-                          marginRight: '1rem'
-                        }}
-                        onClick={handleSubmit}
-                      >
-                        <AddIcon style={{ fontSize: '19', color: '#fff' }} />
-                      </Fab>
-                    </span>
-                  </Tooltip>
-                </div>
-
-                <ContactForm />
-              </div>
+              </IconButton>
             </div>
           </>
         }
@@ -345,28 +326,3 @@ const ContactTable = () => {
 }
 
 export default ContactTable
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

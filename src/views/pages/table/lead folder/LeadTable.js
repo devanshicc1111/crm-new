@@ -22,8 +22,7 @@ import AddIcon from '@mui/icons-material/Add'
 import LeadDetails from './LeadDetails'
 import LeadStepper from './LeadStepper'
 import HorizontalLinearStepper from './LeadStepper'
-import QuickSearchToolbar from '../GenericButton/QuickSearchToolbar'
-
+import QuickSearchToolbar from 'src/GenericButton/QuickSearchToolBar'
 // ** renders client column
 const renderClient = params => {
   const { row } = params
