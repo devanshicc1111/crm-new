@@ -13,32 +13,51 @@ import TableCell from '@mui/material/TableCell'
 import Typography from '@mui/material/Typography'
 import IconButton from '@mui/material/IconButton'
 import TableContainer from '@mui/material/TableContainer'
-
-// ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-const createData = (name, calories, fat, carbs, protein, price) => {
-  return {
-    name,
-    calories,
-    fat,
-    carbs,
-    protein,
-    price,
+const rows = [
+  {
+    id: 1,
+    name: 'Frozen yoghurt',
+    calories: 159,
+    fat: 6.0,
+    carbs: 24,
+    protein: 4.0,
+    price: 3.99,
     history: [
-      {
-        date: '2020-01-05',
-        customerId: '11091700',
-        amount: 3
-      },
-      {
-        date: '2020-01-02',
-        customerId: 'Anonymous',
-        amount: 1
-      }
+      { date: '2020-01-05', customerId: '11091700', amount: 3 },
+      { date: '2020-01-02', customerId: 'Anonymous', amount: 1 }
     ]
-  }
-}
+  },
+  { id: 2, name: 'Ice cream sandwich', calories: 237, fat: 9.0, carbs: 37, protein: 4.3, price: 4.99, history: [] },
+  {
+    id: 3,
+    name: 'Eclair',
+    calories: 262,
+    fat: 16.0,
+    carbs: 24,
+    protein: 6.0,
+    price: 3.79,
+    history: [
+      { date: '2020-01-05', customerId: '11091700', amount: 2 },
+      { date: '2020-01-02', customerId: 'Anonymous', amount: 1 }
+    ]
+  },
+  {
+    id: 4,
+    name: 'Cupcake',
+    calories: 305,
+    fat: 3.7,
+    carbs: 67,
+    protein: 4.3,
+    price: 2.5,
+    history: [
+      { date: '2020-01-05', customerId: '11091700', amount: 5 },
+      { date: '2020-01-02', customerId: 'Anonymous', amount: 2 }
+    ]
+  },
+  { id: 5, name: 'Gingerbread', calories: 356, fat: 16.0, carbs: 49, protein: 3.9, price: 1.5, history: [] }
+]
 
 const Row = props => {
   // ** Props
@@ -70,28 +89,32 @@ const Row = props => {
               <Typography variant='h6' gutterBottom component='div'>
                 History
               </Typography>
-              <Table size='small' aria-label='purchases'>
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Date</TableCell>
-                    <TableCell>Customer</TableCell>
-                    <TableCell align='right'>Amount</TableCell>
-                    <TableCell align='right'>Total price ($)</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {row.history.map(historyRow => (
-                    <TableRow key={historyRow.date}>
-                      <TableCell component='th' scope='row'>
-                        {historyRow.date}
-                      </TableCell>
-                      <TableCell>{historyRow.customerId}</TableCell>
-                      <TableCell align='right'>{historyRow.amount}</TableCell>
-                      <TableCell align='right'>{Math.round(historyRow.amount * row.price * 100) / 100}</TableCell>
+              {Array.isArray(row.history) && row.history.length > 0 ? (
+                <Table size='small' aria-label='purchases'>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>Date</TableCell>
+                      <TableCell>Customer</TableCell>
+                      <TableCell align='right'>Amount</TableCell>
+                      <TableCell align='right'>Total price ($)</TableCell>
                     </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
+                  </TableHead>
+                  <TableBody>
+                    {row.history.map(historyRow => (
+                      <TableRow key={historyRow.date}>
+                        <TableCell component='th' scope='row'>
+                          {historyRow.date}
+                        </TableCell>
+                        <TableCell>{historyRow.customerId}</TableCell>
+                        <TableCell align='right'>{historyRow.amount}</TableCell>
+                        <TableCell align='right'>{Math.round(historyRow.amount * row.price * 100) / 100}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              ) : (
+                <Typography variant='body1'>No history available</Typography>
+              )}
             </Box>
           </Collapse>
         </TableCell>
@@ -99,14 +122,6 @@ const Row = props => {
     </Fragment>
   )
 }
-
-const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0, 3.99),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3, 4.99),
-  createData('Eclair', 262, 16.0, 24, 6.0, 3.79),
-  createData('Cupcake', 305, 3.7, 67, 4.3, 2.5),
-  createData('Gingerbread', 356, 16.0, 49, 3.9, 1.5)
-]
 
 const TableCollapsible = () => {
   return (
@@ -124,7 +139,7 @@ const TableCollapsible = () => {
         </TableHead>
         <TableBody>
           {rows.map(row => (
-            <Row key={row.name} row={row} />
+            <Row key={row.id} row={row} />
           ))}
         </TableBody>
       </Table>
