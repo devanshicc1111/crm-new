@@ -95,3 +95,9 @@ const ViewDetails = ({ open, handleClose, poNumber }) => {
 }
 
 export default ViewDetails
+
+
+
+
+
+

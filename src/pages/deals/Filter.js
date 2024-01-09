@@ -13,9 +13,9 @@ const Filter = props => {
         justifyContent: 'space-between',
         p: theme => theme.spacing(2, 5, 4, 5),
         position: 'absolute',
-        top: '-56px',
+        top: '-26px',
         zIndex: '1000',
-        marginLeft: '49rem'
+        marginLeft: '63rem'
       }}
     >
       <GridToolbarFilterButton />
