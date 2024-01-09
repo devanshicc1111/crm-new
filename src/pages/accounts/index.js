@@ -1,6 +1,6 @@
 import React from 'react'
-import Accounts from './Accounts'
 import PersistLogin from 'src/components/PersistLogin'
+import Accounts from 'src/components/accounts/Accounts'
 
 const Index = () => {
   return (

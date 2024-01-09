@@ -1,6 +1,6 @@
 import React from 'react'
-import Contact from './Contact'
 import PersistLogin from 'src/components/PersistLogin'
+import Contact from 'src/components/contact/Contact'
 
 const Index = () => {
   return (

@@ -4,9 +4,9 @@ import Deals from 'src/components/deals/Deals'
 
 const Index = () => {
   return (
-    // <PersistLogin>
+    <PersistLogin>
       <Deals />
-    // {/* </PersistLogin> */}
+    </PersistLogin>
   )
 }
 

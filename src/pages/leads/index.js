@@ -1,6 +1,7 @@
 import React from 'react'
-import Leads from './Leads'
+
 import PersistLogin from 'src/components/PersistLogin'
+import Leads from 'src/components/leads/Leads'
 
 const Index = () => {
   return (
