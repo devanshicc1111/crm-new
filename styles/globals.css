@@ -110,3 +110,7 @@ code[class*='language-'] {
 .MuiInputBase-root.MuiOutlinedInput-root.MuiInputBase-colorPrimary.MuiInputBase-formControl.MuiInputBase-adornedEnd.css-1i03c3l-MuiInputBase-root-MuiOutlinedInput-root {
   width: 75%;
 }
+
+.MuiTabs-scroller.MuiTabs-fixed.css-kqhgxw-MuiTabs-scroller {
+  overflow: overlay !important;
+}

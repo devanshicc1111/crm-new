@@ -25,7 +25,7 @@ const CustomInput = forwardRef(({ ...props }, ref) => {
   return <CustomTextField fullWidth label='Start Date' inputRef={ref} {...props} />
 })
 
-const LeadDetails = ({ open, handleClose, handleDialogSubmit }) => {
+const LeadDetails = ({ open, handleClose, handleDialogSubmit, popperPlacement }) => {
   const [collapsed, setCollapsed] = useState(true)
   const [collapseQuotation, setCollapseQuotation] = useState(true)
   const [notesCollapse, setNotesCollapse] = useState(true)
@@ -70,8 +70,8 @@ const LeadDetails = ({ open, handleClose, handleDialogSubmit }) => {
       >
         <Grid xs={12}>
           <Card sx={{ position: 'relative', marginTop: 3, marginLeft: 3, padding: 2 }}>
-            <Grid>
-              <div>
+            <Grid className='lead-status-container' style={{ display: 'flex' }}>
+              <Grid xs={2} className='lead-status-item'>
                 <DatePicker
                   readOnly
                   selected={date}
@@ -81,10 +81,23 @@ const LeadDetails = ({ open, handleClose, handleDialogSubmit }) => {
                   placeholderText='Click to select a date'
                   customInput={<CustomInput readOnly label='Readonly' />}
                 />
-              </div>
-            </Grid>
+              </Grid>
 
-            <LeadStatus />
+              <Grid xs={8} className='lead-status-item' overflow>
+                <LeadStatus />
+              </Grid>
+
+              <Grid xs={2} className='lead-status-item'>
+                <DatePicker
+                  selected={date}
+                  id='basic-input'
+                  popperPlacement={popperPlacement}
+                  onChange={date => setDate(date)}
+                  placeholderText='Click to select a date'
+                  customInput={<CustomInput label='Basic' />}
+                />
+              </Grid>
+            </Grid>
           </Card>
         </Grid>
 
