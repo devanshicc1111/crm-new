@@ -5,9 +5,9 @@ import PersistLogin from 'src/components/PersistLogin'
 
 const Index = () => {
   return (
-    <PersistLogin>
+    // <PersistLogin>
       <Deals />
-    </PersistLogin>
+    // {/* </PersistLogin> */}
   )
 }
 
