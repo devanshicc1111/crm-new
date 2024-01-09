@@ -1,7 +1,6 @@
 import React from 'react'
-
-import Deals from './Deals'
 import PersistLogin from 'src/components/PersistLogin'
+import Deals from 'src/components/deals/Deals'
 
 const Index = () => {
   return (
