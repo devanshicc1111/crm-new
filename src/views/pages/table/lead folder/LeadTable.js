@@ -15,7 +15,7 @@ import DeleteIcon from '@mui/icons-material/Delete'
 import CustomChip from 'src/@core/components/mui/chip'
 
 // ** Utils Import
-import { escapeRegExp } from '@mui/x-data-grid/utils/utils'
+// import { escapeRegExp } from '@mui/x-data-grid/utils/utils'
 
 import { Collapse, Dialog, Fab, Tooltip } from '@mui/material'
 import AddIcon from '@mui/icons-material/Add'
@@ -187,14 +187,15 @@ const LeadTable = () => {
 
   const handleSearch = searchValue => {
     setSearchText(searchValue)
-    const searchRegex = new RegExp(escapeRegExp(searchValue), 'i')
 
-    const filteredRows = data.filter(row => {
-      return Object.keys(row).some(field => {
-        // @ts-ignore
-        return searchRegex.test(row[field].toString())
-      })
-    })
+    // const searchRegex = new RegExp(escapeRegExp(searchValue), 'i')
+
+    // const filteredRows = data.filter(row => {
+    //   return Object.keys(row).some(field => {
+    //     // @ts-ignore
+    //     return searchRegex.test(row[field].toString())
+    //   })
+    // })
     if (searchValue.length) {
       setFilteredData(filteredRows)
     } else {

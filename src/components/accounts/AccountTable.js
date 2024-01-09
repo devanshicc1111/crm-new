@@ -14,10 +14,10 @@ import VisibilityIcon from '@mui/icons-material/Visibility'
 import IconButton from '@mui/material/IconButton'
 import DeleteIcon from '@mui/icons-material/Delete'
 
-
 import AccountForm from './AccountForm'
 import AccountDetails from './AccountDetails'
 import QuickSearchToolbar from 'src/GenericButton/QuickSearchToolBar'
+
 import { escapeRegExp } from '@mui/x-data-grid/utils/utils'
 
 // ** renders client column
@@ -305,7 +305,7 @@ const AccountTable = () => {
         action={
           <>
             <div className='PaIconCon'>
-              <IconButton >
+              <IconButton>
                 <Tooltip title='CREATE LEAD' placement='top'>
                   <span>
                     <Fab

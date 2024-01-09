@@ -34,6 +34,10 @@ module.exports = {
       {
         source: '/user_service/api/version/',
         destination: 'http://gateway-test.apps.ocp4.pacosta.com/user_service/api/version/'
+      },
+      {
+        source: '/crm/api/addAccount/',
+        destination: 'http://gateway-test.apps.ocp4.pacosta.com/crm/api/addAccount/'
       }
     ]
   }

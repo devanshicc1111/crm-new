@@ -3,13 +3,7 @@ import Grid from '@mui/material/Grid'
 import AccountTable from './AccountTable'
 
 const Accounts = () => {
-  return (
-    <Grid container spacing={6}>
-      <Grid item xs={12}>
-        <AccountTable />
-      </Grid>
-    </Grid>
-  )
+  return <AccountTable />
 }
 
 export default Accounts

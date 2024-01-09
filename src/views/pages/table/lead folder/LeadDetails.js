@@ -1,5 +1,5 @@
 import { forwardRef, Fragment, useState } from 'react'
-import { AppBar, Button, Dialog, DialogActions, DialogTitle, Grid, IconButton, TextField } from '@mui/material'
+import { AppBar, Button, Dialog, DialogActions, DialogTitle, Grid, IconButton, TextField, Paper } from '@mui/material'
 import { GridCloseIcon } from '@mui/x-data-grid'
 import Slide from '@mui/material/Slide'
 import Typography from '@mui/material/Typography'
@@ -69,7 +69,7 @@ const LeadDetails = ({ open, handleClose, handleDialogSubmit, popperPlacement })
         }}
       >
         <Grid xs={12}>
-          <Card sx={{ position: 'relative', marginTop: 3, marginLeft: 3, padding: 2 }}>
+          <Paper sx={{ position: 'relative', marginTop: 3, marginLeft: 3, padding: 2 }}>
             <Grid className='lead-status-container' style={{ display: 'flex' }}>
               <Grid xs={2} className='lead-status-item'>
                 <DatePicker
@@ -98,11 +98,11 @@ const LeadDetails = ({ open, handleClose, handleDialogSubmit, popperPlacement })
                 />
               </Grid>
             </Grid>
-          </Card>
+          </Paper>
         </Grid>
 
         <Grid xs={12}>
-          <Card sx={{ position: 'relative', marginTop: 3, marginLeft: 3, padding: 2 }}>
+          <Paper sx={{ position: 'relative', marginTop: 3, marginLeft: 3, padding: 2 }}>
             <CardHeader
               title='Description'
               action={
@@ -121,7 +121,7 @@ const LeadDetails = ({ open, handleClose, handleDialogSubmit, popperPlacement })
                 <TextField id='fullwidth' multiline maxRows={8} fullWidth />
               </CardContent>
             </Collapse>
-          </Card>
+          </Paper>
         </Grid>
 
         <Grid xs={12}>
