@@ -27,7 +27,6 @@ import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
-  Button,
   Card,
   CardHeader,
   Dialog,
@@ -58,19 +57,19 @@ const newColumns = [
 
 const VISIBLE_FIELDS = ['account_name', 'lead_id', 'po_number', 'dueDate', 'value', 'status', 'action']
 
-// const ControlledFilters = () => {
-//   const data = {
-//     rows: { rows },
-//     columns: VISIBLE_FIELDS.map(field => ({ field, headerName: field.charAt(0).toUpperCase() + field.slice(1) })),
-//     filterable: true
-//   }
+const ControlledFilters = () => {
+  const data = {
+    rows: { rows },
+    columns: VISIBLE_FIELDS.map(field => ({ field, headerName: field.charAt(0).toUpperCase() + field.slice(1) })),
+    filterable: true
+  }
 
-//   return (
-//     <div style={{ height: 0, width: '100%' }}>
-//       <DataGrid {...data} slots={{ toolbar: Filter }} hideFooter />
-//     </div>
-//   )
-// }
+  return (
+    <div style={{ height: 0, width: '100%' }}>
+      <DataGrid {...data} slots={{ toolbar: Filter }} hideFooter />
+    </div>
+  )
+}
 
 const createData = (account_name, lead_id, po_number, dueDate, value, status, action) => {
   return {
@@ -256,7 +255,7 @@ const TableCollapsible = () => {
                 placeholder='Search…'
                 variant='outlined'
                 value={searchQuery}
-                sx={{ alignItems: 'flex-end', right: '15rem', position: 'absolute', top: '100px' }}
+                sx={{ alignItems: 'flex-end', right: '8rem', position: 'absolute', top: '100px' }}
                 onChange={e => setSearchQuery(e.target.value)}
                 InputProps={{
                   startAdornment: (
@@ -297,11 +296,8 @@ const TableCollapsible = () => {
                 <SortIcon />
                 Filter
               </IconButton> */}
-              {/* <ControlledFilters /> */}
+              <ControlledFilters />
             </div>
-            {/* <div style={{ marginLeft: '73rem' }}>
-              <Button>History</Button>
-            </div> */}
           </Box>
         </div>
         <Table aria-label='collapsible table'>
