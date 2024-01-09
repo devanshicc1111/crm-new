@@ -23,6 +23,7 @@ import LeadDetails from './LeadDetails'
 import LeadStepper from './LeadStepper'
 import HorizontalLinearStepper from './LeadStepper'
 import QuickSearchToolbar from 'src/GenericButton/QuickSearchToolBar'
+
 // ** renders client column
 const renderClient = params => {
   const { row } = params
@@ -152,7 +153,6 @@ const LeadTable = () => {
   const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 7 })
   const [open, setOpen] = useState(false)
   const [stepperopen, setStepperopen] = useState(false)
-
   const [openDialog, setOpenDialog] = useState(false)
   const [collapsed, setCollapsed] = useState(true)
   const [data] = useState(rows)

@@ -210,6 +210,7 @@ const ContactTable = () => {
   const [filteredData, setFilteredData] = useState([])
   const [collapsed, setCollapsed] = useState(true)
   const [searchText, setSearchText] = useState('')
+
   const handleSubmit = () => {
     setOpen(!open)
   }
@@ -226,9 +227,11 @@ const ContactTable = () => {
   const handleVisibilityIconClick = () => {
     setOpenDialog(true)
   }
+
   const handleDialogSubmit = params => {
     handleVisibilityIconClick()
   }
+
   const handleSearch = searchValue => {
     setSearchText(searchValue)
     const searchRegex = new RegExp(escapeRegExp(searchValue), 'i')
@@ -245,6 +248,7 @@ const ContactTable = () => {
       setFilteredData([])
     }
   }
+
   return (
     <Card>
       <CardHeader

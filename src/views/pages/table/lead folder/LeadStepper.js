@@ -31,6 +31,7 @@ export default function HorizontalLinearStepper() {
   }
 
   const steps = ['CREATE LEAD', 'SELECT PRODUCT']
+
   return (
     <Box sx={{ width: '100%', padding: '0.7rem' }}>
       <Stepper activeStep={activeStep}>
@@ -41,6 +42,7 @@ export default function HorizontalLinearStepper() {
           if (isStepSkipped(index)) {
             stepProps.completed = false
           }
+
           return (
             <Step key={label} {...stepProps}>
               <StepLabel {...labelProps}>{label}</StepLabel>
